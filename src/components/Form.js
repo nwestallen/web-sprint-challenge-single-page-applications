@@ -10,7 +10,7 @@ const StyledForm = styled.form`
     align-items: left;
     border: 3px solid black;
     width: 300px;
-    margin: 20px auto;
+    margin: 50px auto;
 
     .error {
         color: red;

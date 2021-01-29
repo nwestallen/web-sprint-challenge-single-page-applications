@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -33,6 +33,9 @@ const StyledHeader = styled.header`
 `;
 
 const App = () => {
+
+  const [cart,setCart] = useState([]);
+
   return (
     <div className='App'>
       <StyledHeader>
@@ -44,7 +47,7 @@ const App = () => {
       </StyledHeader>
       <Switch>
         <Route path='/pizza'>
-          <Form />
+          <Form cart={cart} setCart={setCart}/>
         </Route>
         <Route exact path='/'>
           <Home />

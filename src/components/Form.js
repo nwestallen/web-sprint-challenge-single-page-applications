@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const StyledForm = styled.form`
     display: flex;
@@ -19,6 +20,7 @@ const StyledForm = styled.form`
 const formSchema = Yup.object().shape({
     name: Yup
     .string()
+    .required('Must include name for order')
     .min(2, 'Must be at least 2 characters long'),
     size: Yup
     .string(),
@@ -38,10 +40,17 @@ const formSchema = Yup.object().shape({
 
 const Form = props => {
 
+    const { cart, setCart } = props;
+
     const[orderItem, setOrderItem] = useState({name:'',size:'',pepperoni:false,sausage:false,mushroom:false,greenPepper:false,onion:false,notes:''});
+    const[disabled, setDisabled] = useState(true)
     const[errors, setErrors] = useState({
         name:''
     })
+
+    useEffect(() => {
+        formSchema.isValid(orderItem).then(valid => setDisabled(!valid));
+    }, [orderItem])
 
     const handleChange = event => {
         const { name, type, value, checked } = event.target
@@ -59,8 +68,16 @@ const Form = props => {
         }
     }
 
+    const handleSubmit = event => {
+        event.preventDefault();
+        axios
+        .post('https://reqres.in/api/order', orderItem)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    };
+
     return(
-        <StyledForm>
+        <StyledForm onSubmit={handleSubmit}>
             <h2>Pls order pizza</h2>
             <label>Name: 
                 <input type='text' name='name' value={orderItem.name} onChange={handleChange} />
@@ -99,7 +116,7 @@ const Form = props => {
             <label>Special Instructions: 
                 <input type='text' name='notes' value={orderItem.notes} onChange={handleChange}/>
             </label>
-            <button>Add to Order</button>
+            <button disabled={disabled}>Add to Order</button>
         </StyledForm>
     );
 };

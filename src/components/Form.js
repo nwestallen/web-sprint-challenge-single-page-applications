@@ -72,7 +72,10 @@ const Form = props => {
         event.preventDefault();
         axios
         .post('https://reqres.in/api/order', orderItem)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res);
+            setOrderItem({name:'',size:'',pepperoni:false,sausage:false,mushroom:false,greenPepper:false,onion:false,notes:''});
+        })
         .catch(err => console.log(err));
     };
 

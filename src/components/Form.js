@@ -6,14 +6,51 @@ import axios from 'axios';
 
 const StyledForm = styled.form`
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column wrap;
     align-items: left;
     border: 3px solid black;
     width: 300px;
+    margin: 20px auto;
 
     .error {
         color: red;
         font-size: 10px;
+    }
+
+    h2 {
+        background-color: red;
+        color: white;
+        margin: 0;
+        padding-bottom: 5px;
+        text-align: center;
+    }
+
+    div {
+        margin: 10px;
+        margin-top: 0px;
+    }
+
+    label {
+        margin: 10px;
+        display: flex;
+        justify-content: space-space-around;
+        flex-wrap: wrap;
+    }
+
+    input, select {
+        margin-left: 10px;
+    }
+
+    button {
+        margin: 10px;
+        background-color: red;
+        border: none;
+        color: white;
+        font-weight: bold;
+        width: fit-content;
+        align-self: center;
+        padding: 5px 10px;
+        border-radius: 4px;
     }
 `;
 
@@ -81,12 +118,12 @@ const Form = props => {
 
     return(
         <StyledForm onSubmit={handleSubmit}>
-            <h2>Pls order pizza</h2>
-            <label>Name: 
+            <h2>Build a Pizza</h2>
+            <label>Name
                 <input type='text' name='name' value={orderItem.name} onChange={handleChange} />
                 {errors.name.length > 0 && <p className='error'>{errors.name}</p>}
             </label>
-            <label>Size:
+            <label>Size
                 <select name='size' value={orderItem.size} onChange={handleChange}>
                     <option value='small'>Small</option>
                     <option value='medium'>Medium</option>
@@ -116,7 +153,7 @@ const Form = props => {
                     Onion
                 </label>
             </div>
-            <label>Special Instructions: 
+            <label>Special Instructions 
                 <input type='text' name='notes' value={orderItem.notes} onChange={handleChange}/>
             </label>
             <button disabled={disabled}>Add to Order</button>

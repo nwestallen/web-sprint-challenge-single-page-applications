@@ -14,12 +14,12 @@ describe('Order Form Test', () => {
         .should('be.checked')
         .uncheck()
         .should('not.be.checked');
-    })
+    });
 
     it('Can submit form', () => {
         cy.get('button')
         .click()
         .get('input[name=name]')
         .should('have.value','');
-    })
+    });
 })
